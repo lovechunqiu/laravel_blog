@@ -41,6 +41,11 @@ class LoginController extends CommonController
         echo Crypt::decrypt($str_p);
     }
 
+    public function logout(){
+        session(['user' => null]);
+        return redirect('admin/login');
+    }
+
     public function code(){
         $code = new \Code;
         $code->make();
