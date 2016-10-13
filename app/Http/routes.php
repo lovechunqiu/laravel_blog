@@ -15,10 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//    Route::get('test', 'IndexController@index');
+
+Route::get('admin/index', 'Admin\IndexController@index');
+Route::get('admin/info', 'Admin\IndexController@info');
 
 Route::any('admin/login', 'Admin\LoginController@login');
-Route::get('admin/crypt', 'Admin\LoginController@crypt');
 Route::get('admin/code', 'Admin\LoginController@code');
 
 //Route::group(['middleware' => ['web']], function(){
