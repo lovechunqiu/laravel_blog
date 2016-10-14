@@ -55,7 +55,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>编辑：</th>
+                        <th>编辑者：</th>
                         <td>
                             <input type="text" class="lg" name="art_editor">
                         </td>
@@ -63,7 +63,7 @@
                     <tr>
                         <th>缩略图：</th>
                         <td>
-                            <input type="text" class="lg" name="art_thumb">
+                            <input type="hidden" class="lg" name="art_thumb">
                             <input id="file_upload" name="file_upload" type="file" multiple="true">
                             <script src="{{asset('resources/org/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
                             <link rel="stylesheet" type="text/css" href="{{asset('resources/org/uploadify/uploadify.css')}}">
