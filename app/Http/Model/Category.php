@@ -12,6 +12,8 @@ class Category extends Model
     protected $primaryKey = 'cate_id';
     //默认时间
     public $timestamps = false;
+    //排查不能填充的字段
+    protected $guarded = [];
 
     public function tree()
     {

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends CommonController
 {
@@ -18,15 +19,38 @@ class CategoryController extends CommonController
 
     }
 
-    //post.admin/category
-    public function store()
-    {
-
-    }
-
     //post.admin/category/create 添加分类
     public function create()
     {
+        $data = Category::where('cate_pid', 0)->get();
+        return view('admin.category.add')->with('data', $data);
+    }
+
+    //post.admin/category 添加分类提交
+    public function store()
+    {
+        $input = Input::except('_token');
+        //验证规则
+        $rules = [
+            'cate_name' => 'required',
+        ];
+        //自定义内容
+        $message = [
+            'cate_name.required'  => '分类名称不能为空！',
+        ];
+        $validator = Validator::make($input,$rules,$message);
+        if($validator->passes()){
+            $re = Category::create($input);
+            if($re){
+                return redirect('admin/category');
+            }else{
+                return back()->with('errors', '数据填充失败，请稍后重试！');
+            }
+        }else{
+            //打印错误信息
+            //dd($validator->errors()->all());
+            return back()->withErrors($validator);
+        }
 
     }
 
