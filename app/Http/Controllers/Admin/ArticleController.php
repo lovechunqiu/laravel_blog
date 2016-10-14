@@ -55,7 +55,52 @@ class ArticleController extends CommonController
             //dd($validator->errors()->all());
             return back()->withErrors($validator);
         }
-
-
     }
+
+    //get.admin/article/{article}/edit 编辑文章
+    public function edit($art_id)
+    {
+        $field = Article::find($art_id);
+        $data = (new Category)->tree();
+        return view('admin.article.edit', compact('field', 'data'));
+    }
+
+    //put.admin/article/{article} 更新文章
+    public function update($art_id)
+    {
+        //剔除不要的参数
+        $input = Input::except('_token', '_method');
+        $re = Article::where('art_id', $art_id)->update($input);
+        if($re){
+            return redirect('admin/article');
+        }else{
+            return back()->with('errors', '文章更新失败，请稍后重试！');
+        }
+    }
+
+    public function show()
+    {
+        
+    }
+
+    //delete.admin/article/{article} 删除单个文章
+    public function destroy($art_id)
+    {
+        $re = Article::where('art_id', $art_id)->delete();
+        if($re){
+            //成功
+            $data = array(
+                'status' => 0,
+                'msg' => '文章删除成功！',
+            );
+        }else{
+            //失败
+            $data = array(
+                'status' => 1,
+                'msg' => '文章删除失败，请稍后重试！',
+            );
+        }
+        return $data;
+    }
+
 }
