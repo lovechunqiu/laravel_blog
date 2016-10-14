@@ -60,10 +60,26 @@ class CategoryController extends CommonController
 
     }
 
-    //get.admin/category/{category} 删除单个分类
-    public function destory()
+    //delete.admin/category/{category} 删除单个分类
+    public function destroy($cate_id)
     {
-
+        $re = Category::where('cate_id', $cate_id)->delete();
+        //更新其他的子分类为顶级分类
+        Category::where('cate_pid', $cate_id)->update(array('cate_pid' => 0));
+        if($re){
+            //成功
+            $data = array(
+                'status' => 0,
+                'msg' => '分类删除成功！',
+            );
+        }else{
+            //失败
+            $data = array(
+                'status' => 1,
+                'msg' => '分类删除失败，请稍后重试！',
+            );
+        }
+        return $data;
     }
 
     //get.admin/category/{category}/edit 编辑分类
