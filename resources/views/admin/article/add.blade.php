@@ -34,7 +34,7 @@
     <!--结果集标题与导航组件 结束-->
     
     <div class="result_wrap">
-        <form action="{{url('admin/category')}}" method="post">
+        <form action="{{url('admin/article')}}" method="post">
             {{csrf_field()}}
             <table class="add_tab">
                 <tbody>
@@ -64,6 +64,39 @@
                         <th>缩略图：</th>
                         <td>
                             <input type="text" class="lg" name="art_thumb">
+                            <input id="file_upload" name="file_upload" type="file" multiple="true">
+                            <script src="{{asset('resources/org/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
+                            <link rel="stylesheet" type="text/css" href="{{asset('resources/org/uploadify/uploadify.css')}}">
+                            <script type="text/javascript">
+                                <?php $timestamp = time();?>
+                                $(function() {
+                                    $('#file_upload').uploadify({
+                                        'buttonText':'图片上传',
+                                        'formData'     : {
+                                            'timestamp' : '<?php echo $timestamp;?>',
+                                            '_token'     : "{{csrf_token()}}"
+                                        },
+                                        'swf'      : "{{asset('resources/org/uploadify/uploadify.swf')}}",
+                                        'uploader' : "{{url('admin/upload')}}",
+                                        'onUploadSuccess':function(file, data, response){
+                                            $('input[name="art_thumb"]').val(data);
+                                            $('#art_thumb_img').attr('src', '/' + data)
+//                                            alert(data)
+                                        }
+                                    });
+                                });
+                            </script>
+                            <style>
+                                .uploadify{display:inline-block;}
+                                .uploadify-button{border:none; border-radius:5px; margin-top:8px;}
+                                table.add_tab tr td span.uploadify-button-text{color: #FFF; margin:0;}
+                            </style>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <img src="" alt="" id="art_thumb_img" style="max-width:350px;max-height: 100px;">
                         </td>
                     </tr>
                     <tr>

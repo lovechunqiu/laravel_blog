@@ -6,6 +6,7 @@ use App\Http\Model\Category;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 
 class ArticleController extends CommonController
 {
@@ -24,6 +25,7 @@ class ArticleController extends CommonController
     //post.admin/article 添加文章提交
     public function store()
     {
-
+        $input = Input::all();
+        dd($input);
     }
 }
