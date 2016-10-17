@@ -13,7 +13,7 @@
 
 Route::get('/', 'Home\IndexController@index');
 Route::get('/cate', 'Home\IndexController@cate');
-Route::get('/art', 'Home\IndexController@art');
+Route::get('/art', 'Home\IndexController@article');
 
 Route::any('admin/login', 'Admin\LoginController@login');
 Route::get('admin/code', 'Admin\LoginController@code');
