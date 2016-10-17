@@ -3,7 +3,7 @@
     <!--面包屑导航 开始-->
     <div class="crumb_warp">
         <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-        <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 友情链接管理
+        <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 友情链接列表
     </div>
     <!--面包屑导航 结束-->
 
@@ -33,7 +33,7 @@
     <form action="#" method="post">
         <div class="result_wrap">
             <div class="result_title">
-                <h3>友情链接列表</h3>
+                <h3>友情链接管理</h3>
             </div>
             <!--快捷导航 开始-->
             <div class="result_content">
@@ -70,7 +70,7 @@
                         <td>{{$v->link_url}}</td>
                         <td>
                             <a href="{{url('admin/links/' . $v->link_id . '/edit')}}">修改</a>
-                            <a href="javascript:delCate('{{$v->link_id}}');">删除</a>
+                            <a href="javascript:delLinks('{{$v->link_id}}');">删除</a>
                         </td>
                     </tr>
                     @endforeach
@@ -93,7 +93,7 @@
     }
 
     //删除分类
-    function delCate(link_id){
+    function delLinks(link_id){
         //询问框
         layer.confirm('您确定要删除这个友情链接么？', {
             btn: ['确定','取消'] //按钮
