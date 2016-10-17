@@ -8,3 +8,4 @@ Homestead.json
 .DS_Store
 nohup.out
 uploads
+config/web.php
