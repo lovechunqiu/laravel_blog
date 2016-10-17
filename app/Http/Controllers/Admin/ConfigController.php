@@ -18,6 +18,29 @@ class ConfigController extends Controller
     public function index()
     {
         $data = config::orderBy('conf_order', 'asc')->get();
+        foreach($data as $k => $v){
+            switch($v->field_type){
+                case 'input':
+                    $data[$k]->_html = '<input type="text" class="lg" name="conf_content[]" value="' . $v->conf_content . '">';
+                    break;
+                case 'textarea':
+                    $data[$k]->_html = '<textarea name="conf_content[]">' . $v->conf_content . '</textarea>';
+                    break;
+                case 'radio':
+                    //1|开启，0|关闭
+                    $arr = explode(',', $v->field_value);
+                    $str = '';
+                    foreach($arr as $m => $n){
+                        //1|开启
+                        $r = explode('|', $n);
+                        $c = $v->conf_content == $r[0] ? ' checked ' : '';
+                        $str .= '<input type="radio" name="conf_content[]" ' . $c . ' value="' . $r[0] . '">' . $r[1] . "&nbsp;&nbsp;";
+                    }
+                    $data[$k]->_html = $str;
+                    break;
+            }
+        }
+
         return view('admin.config.index', compact('data'));
     }
 
@@ -75,6 +98,7 @@ class ConfigController extends Controller
         $input = Input::except('_token', '_method');
         $re = config::where('conf_id', $conf_id)->update($input);
         if($re){
+            $this->putfile();
             return redirect('admin/config');
         }else{
             return back()->with('errors', '配置项信息更新失败，请稍后重试！');
@@ -91,6 +115,7 @@ class ConfigController extends Controller
                 'status' => 0,
                 'msg' => '配置项删除成功！',
             );
+            $this->putfile();
         }else{
             //失败
             $data = array(
@@ -121,5 +146,23 @@ class ConfigController extends Controller
             );
         }
         return $data;
+    }
+
+    public function changecontent()
+    {
+        $input = Input::all();
+        foreach($input['conf_id'] as $k => $v){
+            Config::where('conf_id', $v)->update(array('conf_content' => $input['conf_content'][$k]));
+        }
+        $this->putfile();
+        return back()->with('errors', '配置项更新成功！');
+    }
+
+    public function putfile()
+    {
+        $config = Config::pluck('conf_content', 'conf_name')->all();
+        $path = base_path() . '/config/web.php';
+        $str = '<?php return ' . var_export($config, TRUE) . ';';
+        file_put_contents($path, $str);
     }
 }
