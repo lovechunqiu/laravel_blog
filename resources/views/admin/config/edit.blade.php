@@ -40,29 +40,45 @@
             <table class="add_tab">
                 <tbody>
                     <tr>
-                        <th><i class="require">*</i>链接名称：</th>
+                        <th><i class="require">*</i>标题：</th>
+                        <td>
+                            <input type="text" class="lg" name="conf_title" value="{{$field->conf_title}}">
+                            <span><i class="fa fa-exclamation-circle yellow"></i>配置项标题必须填写</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>名称：</th>
                         <td>
                             <input type="text" class="lg" name="conf_name" value="{{$field->conf_name}}">
-                            <span><i class="fa fa-exclamation-circle yellow"></i>链接名称必须填写</span>
+                            <span><i class="fa fa-exclamation-circle yellow"></i>配置项名称必须填写</span>
                         </td>
                     </tr>
                     <tr>
-                        <th><i class="require">*</i>Url：</th>
+                        <th>类型：</th>
                         <td>
-                            <input type="text" class="lg" name="conf_url" value="{{$field->conf_url}}">
+                            <input type="radio" class="sm" name="field_type" value="input" @if($field->field_type == 'input') checked @endif onclick="showTr()">input&nbsp;&nbsp;
+                            <input type="radio" class="sm" name="field_type" value="textarea" @if($field->field_type == 'textarea') checked @endif onclick="showTr()">textarea&nbsp;&nbsp;
+                            <input type="radio" class="sm" name="field_type" value="radio" @if($field->field_type == 'radio') checked @endif onclick="showTr()">radio
+                            <span><i class="fa fa-exclamation-circle yellow"></i>类型：input textarea radio</span>
                         </td>
                     </tr>
-                    <tr>
-                        <th>链接标题：</th>
+                    <tr class="field_value">
+                        <th>类型值：</th>
                         <td>
-                            <input type="text" class="lg" name="conf_title" value="{{$field->conf_url}}">
+                            <input type="text" class="lg" name="field_value" value="{{$field->field_value}}">
+                            <p><i class="fa fa-exclamation-circle yellow"></i>类型值只有在radio情况下才需要配置，格式：1|开启，0|关闭</p>
                         </td>
                     </tr>
-
                     <tr>
                         <th>排序：</th>
                         <td>
                             <input type="text" class="sm" name="conf_order" value="{{$field->conf_order}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>说明：</th>
+                        <td>
+                            <textarea name="conf_tips">{{$field->conf_tips}}</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -76,5 +92,15 @@
             </table>
         </form>
     </div>
-
+<script>
+    showTr();
+    function showTr(){
+        var type = $("input[name=field_type]:checked").val();
+        if(type == 'radio'){
+            $('.field_value').show();
+        }else{
+            $('.field_value').hide();
+        }
+    }
+</script>
 @endsection

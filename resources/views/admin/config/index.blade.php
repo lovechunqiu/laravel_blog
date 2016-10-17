@@ -51,26 +51,26 @@
                     <tr>
                         <th class="tc" width="5%">排序</th>
                         <th class="tc" width="5%">ID</th>
-                        <th>链接名称</th>
-                        <th>链接标题</th>
-                        <th>链接地址</th>
+                        <th>标题</th>
+                        <th>名称</th>
+                        <th></th>
                         <th>操作</th>
                     </tr>
 
                     @foreach($data as $v)
                     <tr>
                         <td class="tc">
-                            <input type="text" onchange="changeOrder(this,{{$v->link_id}})" name="ord[]" value="{{$v->link_order}}">
+                            <input type="text" onchange="changeOrder(this,{{$v->conf_id}})" name="ord[]" value="{{$v->conf_order}}">
                         </td>
-                        <td class="tc">{{$v->link_id}}</td>
+                        <td class="tc">{{$v->conf_id}}</td>
                         <td>
-                            <a href="#">{{$v->link_name}}</a>
+                            <a href="#">{{$v->conf_title}}</a>
                         </td>
-                        <td>{{$v->link_title}}</td>
-                        <td>{{$v->link_url}}</td>
+                        <td>{{$v->conf_name}}</td>
+                        <td></td>
                         <td>
-                            <a href="{{url('admin/config/' . $v->link_id . '/edit')}}">修改</a>
-                            <a href="javascript:delconfig('{{$v->link_id}}');">删除</a>
+                            <a href="{{url('admin/config/' . $v->conf_id . '/edit')}}">修改</a>
+                            <a href="javascript:delconfig('{{$v->conf_id}}');">删除</a>
                         </td>
                     </tr>
                     @endforeach
@@ -81,9 +81,9 @@
     <!--搜索结果页面 列表 结束-->
 
 <script>
-    function changeOrder(obj, link_id){
-        var link_order = $(obj).val();
-        $.post("{{url('admin/config/changeorder')}}", {link_id:link_id,link_order:link_order,'_token':'{{csrf_token()}}'}, function(data){
+    function changeOrder(obj, conf_id){
+        var conf_order = $(obj).val();
+        $.post("{{url('admin/config/changeorder')}}", {conf_id:conf_id,conf_order:conf_order,'_token':'{{csrf_token()}}'}, function(data){
             if(data.status == 0){
                 layer.msg(data.msg, {icon:6})
             }else{
@@ -93,12 +93,12 @@
     }
 
     //删除分类
-    function delconfig(link_id){
+    function delconfig(conf_id){
         //询问框
         layer.confirm('您确定要删除这个配置项么？', {
             btn: ['确定','取消'] //按钮
         }, function(){
-            $.post("{{url('admin/config')}}/" + link_id, {'_method':'delete','_token':'{{csrf_token()}}'}, function(data){
+            $.post("{{url('admin/config')}}/" + conf_id, {'_method':'delete','_token':'{{csrf_token()}}'}, function(data){
                 if(data.status == 0){
                     window.location.href = window.location.href;
                     layer.msg(data.msg, {icon:6})
