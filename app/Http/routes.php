@@ -28,8 +28,13 @@ Route::group(['middleware' => ['admin.login'], 'prefix' => 'admin', 'namespace' 
     Route::resource('category', 'CategoryController');
 
     Route::resource('article', 'ArticleController');
+
     Route::resource('links', 'LinksController');
     Route::post('links/changeorder', 'LinksController@changeorder');
+
+    Route::resource('navs', 'NavsController');
+    Route::post('navs/changeorder', 'NavsController@changeorder');
+
 
 
     Route::any('upload', 'CommonController@upload');

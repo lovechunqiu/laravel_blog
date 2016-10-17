@@ -36,6 +36,8 @@
 			<ul class="sub_menu">
 				<li><a href="{{url('admin/links/create')}}" target="main"><i class="fa fa-fw fa-plus-square"></i>添加友情链接</a></li>
 				<li><a href="{{url('admin/links')}}" target="main"><i class="fa fa-fw fa-list-ul"></i>友情链接列表</a></li>
+				<li><a href="{{url('admin/navs/create')}}" target="main"><i class="fa fa-fw fa-navicon"></i>添加自定义导航</a></li>
+				<li><a href="{{url('admin/navs')}}" target="main"><i class="fa fa-fw fa-list-ul"></i>自定义导航列表</a></li>
 			</ul>
 		</li>
 		<li>
