@@ -26,7 +26,7 @@ class LoginController extends CommonController
             //存储信息
             session(['user' => $user]);
 //            dd(session('user'));
-            return redirect('admin/index');
+            return redirect('admin');
         }else{
 //            dd($_SERVER);
             return view('admin.login');

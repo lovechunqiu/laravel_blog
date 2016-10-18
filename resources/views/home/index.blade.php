@@ -12,7 +12,7 @@
       <p>为自己掘一个坟墓来葬心，红尘一梦，不再追寻。</p>
       <p>加了锁的青春，不会再因谁而推开心门。</p>
     </ul>
-    <div class="avatar"><a href="#"><span>后盾</span></a> </div>
+    <div class="avatar"><a href="{{url('/')}}"><span>blog</span></a> </div>
   </section>
 </div>
 <div class="template">
@@ -22,7 +22,7 @@
     </h3>
     <ul>
       @foreach($pics as $k => $v)
-        <li><a href="{{url('a/' . $v->art_id)}}"  target="_blank"><img src="{{url($v->art_thumb)}}"></a><span>{{$v->art_title}}</span></li>
+        <li><a href="{{url('a/' . $v->art_id)}}"><img src="{{url($v->art_thumb)}}"></a><span>{{$v->art_title}}</span></li>
       @endforeach
     </ul>
   </div>
