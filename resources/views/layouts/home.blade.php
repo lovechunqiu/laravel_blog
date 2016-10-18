@@ -20,7 +20,7 @@
 </header>
 @yield('content')
 <footer>
-    <p>Design by 后盾网 <a href="http://www.miitbeian.gov.cn/" target="_blank">http://www.houdunwang.com</a> <a href="/">网站统计</a></p>
+    <p>{!! Config::get('web.copynight') !!} {!! Config::get('web.web_count') !!}</p>
 </footer>
 </body>
 </html>
