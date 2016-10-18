@@ -22,7 +22,7 @@
     </h3>
     <ul>
       @foreach($pics as $k => $v)
-        <li><a href="{{url('a/' . $v->art_url)}}"  target="_blank"><img src="{{url($v->art_thumb)}}"></a><span>{{$v->art_title}}</span></li>
+        <li><a href="{{url('a/' . $v->art_id)}}"  target="_blank"><img src="{{url($v->art_thumb)}}"></a><span>{{$v->art_title}}</span></li>
       @endforeach
     </ul>
   </div>
@@ -37,7 +37,7 @@
     <figure><img src="{{url($v->art_thumb)}}"></figure>
     <ul>
       <p>{{$v->art_description}}</p>
-      <a title="{{$v->art_title}}" href="{{url('a/' . $v->art_url)}}" target="_blank" class="readmore">阅读全文>></a>
+      <a title="{{$v->art_title}}" href="{{url('a/' . $v->art_id)}}" target="_blank" class="readmore">阅读全文>></a>
     </ul>
     <p class="dateview"><span>{{date('Y-m-d', $v->art_time)}}</span><span>作者：{{$v->editor}}</span></p>
     @endforeach
