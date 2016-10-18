@@ -27,6 +27,9 @@ class IndexController extends CommonController
     {
         $field = Category::find($cate_id);
 
+        //查看次数自增
+        Category::where('cate_id', $cate_id)->increment('cate_view');
+
         //图文列表4篇（带分页）
         $data = Article::where('cate_id', $cate_id)->orderBy('art_time', 'desc')->paginate(4);
 
@@ -39,6 +42,15 @@ class IndexController extends CommonController
     public function article($art_id)
     {
         $field = Article::Join('category', 'article.cate_id', '=', 'category.cate_id')->where('art_id', $art_id)->first();
-        return view('home/new', compact('field'));
+
+        //查看次数自增
+        Article::where('art_id', $art_id)->increment('art_view');
+
+        $article['prev'] = Article::where('art_id', '<', $art_id)->orderBy('art_id', 'desc')->first();
+        $article['next'] = Article::where('art_id', '>', $art_id)->orderBy('art_id', 'asc')->first();
+
+        $data = Article::where('cate_id', $field->cate_id)->orderBy('art_id', 'desc')->take(6)->get();
+
+        return view('home/new', compact('field', 'article', 'data'));
     }
 }

@@ -14,7 +14,7 @@
         <figure><img src="{{url($v->art_thumb)}}"></figure>
         <ul class="nlist">
             <p>{{$v->art_description}}</p>
-            <a title="{{$v->art_title}}" href="{{url('a/' . $v->art_id)}}" target="_blank" class="readmore">阅读全文>></a>
+            <a title="{{$v->art_title}}" href="{{url('a/' . $v->art_id)}}" class="readmore">阅读全文>></a>
         </ul>
         <div class="line"></div>
      @endforeach
@@ -27,7 +27,7 @@
         <div class="rnav">
             <ul>
                 @foreach($submenu as $k => $v)
-                <li class="rnav{{$k+1}}"><a href="{{url('cate/' . $v->cate_id)}}" target="_blank">{{$v->cate_title}}</a></li>
+                <li class="rnav{{$k+1}}"><a href="{{url('cate/' . $v->cate_id)}}">{{$v->cate_title}}</a></li>
                 @endforeach
             </ul>
         </div>

@@ -37,7 +37,7 @@
     <figure><img src="{{url($v->art_thumb)}}"></figure>
     <ul>
       <p>{{$v->art_description}}</p>
-      <a title="{{$v->art_title}}" href="{{url('a/' . $v->art_id)}}" target="_blank" class="readmore">阅读全文>></a>
+      <a title="{{$v->art_title}}" href="{{url('a/' . $v->art_id)}}" class="readmore">阅读全文>></a>
     </ul>
     <p class="dateview"><span>{{date('Y-m-d', $v->art_time)}}</span><span>作者：{{$v->editor}}</span></p>
     @endforeach
@@ -62,7 +62,7 @@
     </h3>
     <ul class="website">
       @foreach($links as $v)
-        <li><a href="{{$v->link_url}}" target="_blank">{{$v->link_name}}</a></li>
+        <li><a href="{{$v->link_url}}">{{$v->link_name}}</a></li>
       @endforeach
     </ul>
     </div>
