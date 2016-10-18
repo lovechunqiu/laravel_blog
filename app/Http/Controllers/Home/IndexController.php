@@ -14,14 +14,8 @@ class IndexController extends CommonController
         //点击量最高的6篇文章（站长推荐）
         $pics = Article::orderBy('art_view', 'desc')->take(6)->get();
 
-        //点击量最高的5篇文章
-        $hot = Article::orderBy('art_view', 'desc')->take(5)->get();
-
         //图文列表5篇（带分页）
         $data = Article::orderBy('art_time', 'desc')->paginate(5);
-
-        //最新发布的8篇文章
-        $new = Article::orderBy('art_time', 'desc')->take(8)->get();
 
         //友情链接
         $links = Links::orderBy('link_order', 'asc')->get();
@@ -33,10 +27,13 @@ class IndexController extends CommonController
     {
         $field = Category::find($cate_id);
 
-        //图文列表5篇（带分页）
+        //图文列表4篇（带分页）
         $data = Article::where('cate_id', $cate_id)->orderBy('art_time', 'desc')->paginate(4);
 
-        return view('home/list', compact('field', 'data'));
+        //当前分页的子分类
+        $submenu = Category::where('cate_pid', $cate_id)->get();
+
+        return view('home/list', compact('field', 'data', 'submenu'));
     }
 
     public function article()
